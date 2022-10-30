@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from flask import Flask, request, jsonify, make_response
+from flask_cors import CORS
 
 # Read the data
 dataset = pd.read_csv('stroke.csv')
@@ -70,6 +71,7 @@ def predict(data):
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/", methods=["POST", "OPTIONS"])
@@ -93,5 +95,3 @@ def _corsify_actual_response(response):
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-
-app.run()
